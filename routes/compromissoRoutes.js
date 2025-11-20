@@ -8,27 +8,31 @@ router.get("/", async (req, res) => {
   res.json(compromissos);
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const compromisso = await Compromisso.findById(req.params.id);
+
+    if (!compromisso) {
+      return res.status(404).json({ erro: "Compromisso não encontrado" });
+    }
+
+    res.json(compromisso);
+  } catch (error) {
+    res.status(500).json({ erro: "Erro ao buscar compromisso" });
+  }
+});
+
 // Cadastrar
 router.post("/", async (req, res) => {
   const novo = await Compromisso.create(req.body);
   res.json(novo);
 });
 
-// Alterar título e descrição
+// Alterar título, descrição e pessoas
 router.put("/:id", async (req, res) => {
   const atualizado = await Compromisso.findByIdAndUpdate(
     req.params.id,
-    { $set: { titulo: req.body.titulo, descricao: req.body.descricao } },
-    { new: true }
-  );
-  res.json(atualizado);
-});
-
-// Alterar pessoas (substituir toda lista)
-router.put("/:id/pessoas", async (req, res) => {
-  const atualizado = await Compromisso.findByIdAndUpdate(
-    req.params.id,
-    { $set: { pessoas: req.body.pessoas } },
+    { $set: { titulo: req.body.titulo, descricao: req.body.descricao, pessoas: req.body.pessoas } },
     { new: true }
   );
   res.json(atualizado);

@@ -92,11 +92,13 @@ async function salvarEdicao() {
     const titulo = document.getElementById("edit-titulo").value;
     const descricao = document.getElementById("edit-descricao").value;
     const pessoasTxt = document.getElementById("edit-pessoas").value;
-
+    console.log(pessoasTxt);
+    console.log(descricao);
     const pessoas = pessoasTxt.split(",").map((nome, i) => ({
         id: "p" + (i + 1),
         nome: nome.trim()
     }));
+    console.log(pessoas);
 
     await fetch(`${api}/${idEditando}`, {
         method: "PUT",
