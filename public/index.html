@@ -91,9 +91,73 @@
             background: #ff4d94;
             margin-top: 10px;
         }
+
+        .btn-edit {
+            background: #ff80bf;
+            margin-right: 10px;
+        }
+
+        .btn-delete-person {
+            background: #ff3385;
+            margin-left: 5px;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 182, 193, 0.6);
+            backdrop-filter: blur(3px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff0f6;
+            padding: 20px;
+            width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px #ff99cc;
+            text-align: center;
+            animation: aparecer 0.3s;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ff80bf;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .btn-cancelar {
+            background: #ff4d94;
+            margin-top: 5px;
+        }
     </style>
 </head>
+<div id="modal-editar" class="modal">
+    <div class="modal-content">
+        <h2>Editar Compromisso 🎀</h2>
 
+        <input id="edit-titulo" placeholder="Título">
+        <input id="edit-descricao" placeholder="Descrição">
+        <input id="edit-pessoas" placeholder="Pessoas (separe por vírgula)">
+            
+        <button onclick="salvarEdicao()">Salvar 💖</button>
+        <button class="btn-cancelar" onclick="fecharModal()">Cancelar ❌</button>
+    </div>
+</div>
 <body>
 
 <header>
