@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Compromisso = require("../models/Compromisso");
 
-// Listar
 router.get("/", async (req, res) => {
   const compromissos = await Compromisso.find();
   res.json(compromissos);
@@ -22,13 +21,29 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Cadastrar
 router.post("/", async (req, res) => {
-  const novo = await Compromisso.create(req.body);
-  res.json(novo);
+  try {
+    let { pessoas } = req.body;
+
+    if (typeof pessoas === "string") {
+      pessoas = pessoas.split(",").map((nome, i) => ({
+        id: "p" + (i + 1),
+        nome: nome.trim()
+      }));
+    }
+
+    const novo = await Compromisso.create({
+      ...req.body,
+      pessoas
+    });
+
+    res.json(novo);
+  } catch (erro) {
+    console.error("ERRO AO CADASTRAR:", erro);
+    res.status(400).json({ erro: erro.message });
+  }
 });
 
-// Alterar título, descrição e pessoas
 router.put("/:id", async (req, res) => {
   const atualizado = await Compromisso.findByIdAndUpdate(
     req.params.id,
@@ -38,7 +53,6 @@ router.put("/:id", async (req, res) => {
   res.json(atualizado);
 });
 
-// Excluir pessoa
 router.delete("/:id/pessoa/:pid", async (req, res) => {
   const atualizado = await Compromisso.findByIdAndUpdate(
     req.params.id,
@@ -48,7 +62,6 @@ router.delete("/:id/pessoa/:pid", async (req, res) => {
   res.json(atualizado);
 });
 
-// Excluir compromisso
 router.delete("/:id", async (req, res) => {
   await Compromisso.findByIdAndDelete(req.params.id);
   res.json({ msg: "Compromisso removido" });

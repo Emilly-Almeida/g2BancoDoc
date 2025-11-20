@@ -1,188 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Agenda Hello Kitty</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: "Nunito", sans-serif;
-            background: #ffe6f2;
-            margin: 0;
-            padding: 0;
-            color: #d63384;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            background: #ffb3d9;
-            border-bottom: 4px solid #ff66b3;
-        }
-
-        header img {
-            width: 100px;
-            filter: drop-shadow(0px 0px 3px #ff66b3);
-        }
-
-        h1 {
-            margin: 10px 0 0 0;
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .card {
-            background: #fff;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px #ffb3d9;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid #ff80bf;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        button {
-            background: #ff66b3;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            background: #ff1a8c;
-        }
-
-        .compromisso {
-            border-left: 6px solid #ff66b3;
-            padding-left: 10px;
-        }
-
-        .pessoa {
-            background: #ffe6f7;
-            margin: 5px 0;
-            padding: 5px 10px;
-            display: inline-block;
-            border-radius: 8px;
-            border: 1px solid #ff99cc;
-        }
-
-        .btn-delete {
-            background: #ff4d94;
-            margin-top: 10px;
-        }
-
-        .btn-edit {
-            background: #ff80bf;
-            margin-right: 10px;
-        }
-
-        .btn-delete-person {
-            background: #ff3385;
-            margin-left: 5px;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-        .modal {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 182, 193, 0.6);
-            backdrop-filter: blur(3px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: #fff0f6;
-            padding: 20px;
-            width: 350px;
-            border-radius: 20px;
-            box-shadow: 0 0 15px #ff99cc;
-            text-align: center;
-            animation: aparecer 0.3s;
-        }
-
-        @keyframes aparecer {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .modal input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #ff80bf;
-            border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        .btn-cancelar {
-            background: #ff4d94;
-            margin-top: 5px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
 </head>
-<div id="modal-editar" class="modal">
-    <div class="modal-content">
-        <h2>Editar Compromisso 🎀</h2>
-
-        <input id="edit-titulo" placeholder="Título">
-        <input id="edit-descricao" placeholder="Descrição">
-        <input id="edit-pessoas" placeholder="Pessoas (separe por vírgula)">
-            
-        <button onclick="salvarEdicao()">Salvar 💖</button>
-        <button class="btn-cancelar" onclick="fecharModal()">Cancelar ❌</button>
-    </div>
-</div>
 <body>
+    <header>
+        <img src="kitty.png" alt="Hello Kitty" width="50"/>
+        <h1>Agenda Hello Kitty <span class="emoji-animado">🎀</span></h1>
+    </header>
 
-<header>
-    <img src="kitty.png">
-    <h1>Agenda Hello Kitty</h1>
-</header>
+    <main class="container">
+        <div class="cal-controls">
+            <button id="prevMonth" class="nav-btn">‹</button>
+            <h2 id="mesAno"></h2>
+            <button id="nextMonth" class="nav-btn">›</button>
+        </div>
 
-<div class="container">
+        <div id="calendar" class="calendar-grid"></div>
+    </main>
 
-    <div class="card">
-        <h2>Adicionar Novo Compromisso 🎀</h2>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="close" id="fecharModal">✖</button>
+            <h3 id="modal-date">Dia</h3>
+            <div id="event-list" class="event-list"></div>
 
-        <input id="data" type="datetime-local">
-        <input id="titulo" placeholder="Título do compromisso">
-        <input id="descricao" placeholder="Descrição">
-        <input id="pessoas" placeholder="Pessoas (separe com vírgula)">
-
-        <button onclick="cadastrar()">Salvar Compromisso 💖</button>
+            <hr>
+            <button id="btnAddNovo" class="btn-add-novo" style="display:none">＋ Adicionar compromisso</button>
+            <div id="form-container">
+                <h4>Adicionar compromisso</h4>
+                <form id="form-add" class="form-add">
+                    <input id="new-titulo" placeholder="Título" required />
+                    <input id="new-descricao" placeholder="Descrição" />
+                    <input id="new-pessoas" placeholder="Pessoas (separe por vírgula)" />
+                    <input id="new-time" type="time" required />
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-save">Salvar</button>
+                        <button type="button" id="cancelAdd" class="btn-cancel">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <h2>✨ Compromissos Salvos</h2>
-    <div id="lista"></div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

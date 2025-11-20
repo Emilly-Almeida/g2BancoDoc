@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root{
+    --pink-1: #ffb3d9;
+    --pink-2: #ff66b3;
+    --pink-3: #ff1a8c;
+    --bg: #ffe6f2;
+    --white: #ffffff;
+    --card: #fff0f6;
+}
+
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family: "Nunito", sans-serif;
+    background: linear-gradient(180deg,var(--bg), #fff);
+    color:#d63384;
+}
+
+header{
+    text-align:center;
+    padding:16px 12px;
+    background:var(--pink-1);
+    border-bottom:4px solid var(--pink-2);
+    display:flex;
+    gap:12px;
+    align-items:center;
+    justify-content:center;
+}
+
+h1{margin:0;font-size:20px;font-weight:700;display:flex;gap:8px;align-items:center}
+
+.emoji-animado{
+    display:inline-block;
+    animation:pulse 1s infinite alternate
+}
+@keyframes pulse{
+    from{transform:scale(1);filter:drop-shadow(0 0 2px #ff66b3)}
+    to{transform:scale(1.18);filter:drop-shadow(0 0 8px #ff1493)}
+}
+
+.container{
+    width:92%;
+    max-width:1100px;
+    margin:20px auto;
+    padding:12px;
+}
+
+.cal-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:12px;
+}
+
+.nav-btn{
+    border:none;
+    background:var(--pink-2);
+    color:white;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    transition:opacity .2s;
+}
+.nav-btn:hover{
+    opacity:.8;
+}
+
+#mesAno{
+    margin:0;
+    font-size:18px;
+    color:#a4005b;
+    font-weight:700;
+}
+
+.calendar-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    background:white;
+    padding:10px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(255,179,217,0.15);
+}
+
+.weekday{
+    text-align:center;
+    font-size:12px;
+    color:#6d6d6d;
+    padding:8px 4px;
+}
+
+.day{
+    background:var(--white);
+    min-height:90px;
+    border-radius:8px;
+    padding:8px;
+    border:1px solid rgba(255,153,204,0.2);
+    position:relative;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+}
+
+.day:hover{
+    transform:translateY(-3px);
+    box-shadow:0 4px 8px rgba(255,102,179,0.2);
+}
+
+.day.out{
+    background:#f9f2f7;
+    opacity:.4;
+}
+
+.date-num{
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.event-badge{
+    position:absolute;
+    bottom:6px;
+    right:6px;
+    background:var(--pink-2);
+    color:white;
+    padding:3px 6px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.45);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.modal-content{
+    background:white;
+    width:100%;
+    max-width:420px;
+    padding:20px;
+    border-radius:12px;
+    position:relative;
+    box-shadow:0 8px 25px rgba(0,0,0,0.18);
+}
+
+.close{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.event-list{
+    margin-bottom:14px;
+}
+
+.event-item{
+    background:var(--card);
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+    box-shadow:0 3px 6px rgba(255,153,204,0.13);
+    overflow-y: auto;
+}
+
+.event-item h4{
+    margin:0;
+    font-size:15px;
+}
+
+.pessoa{
+    display:inline-block;
+    background:white;
+    padding:3px 6px;
+    border-radius:6px;
+    border:1px solid #ffc0db;
+    margin:2px;
+    font-size:12px;
+}
+
+.btn-del-pessoa{
+    border:none;
+    background:none;
+    color:#ff1a8c;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.form-add input{
+    width:100%;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ffb3d9;
+    margin-bottom:8px;
+}
+
+.modal-actions{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+.btn-save{
+    background:var(--pink-3);
+    border:none;
+    padding:8px 12px;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
+.btn-cancel{
+    background:#bbb;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-edit,
+.btn-del{
+    background:var(--pink-2);
+    border:none;
+    padding:5px 8px;
+    color:white;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.btn-del{
+    background:#ff4d7a;
+}
+#formAdicionarWrapper {
+    display: none;
+}
+.btn-add{
+    background: var(--pink-2);
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    margin:10px 0;
+    font-size:14px;
+}
