@@ -8,18 +8,43 @@
 </head>
 <body>
     <header>
-        <img src="kitty.png" alt="Hello Kitty" width="50"/>
+        <img src="material/kitty.png" alt="Hello Kitty" width="50"/>
         <h1>Agenda Hello Kitty <span class="emoji-animado">🎀</span></h1>
     </header>
 
     <main class="container">
-        <div class="cal-controls">
-            <button id="prevMonth" class="nav-btn">‹</button>
-            <h2 id="mesAno"></h2>
-            <button id="nextMonth" class="nav-btn">›</button>
+        <div class="calendar-wrapper">
+            <div class="calendar-section">
+                <div class="cal-controls">
+                    <button id="prevMonth" class="nav-btn">‹</button>
+                    <button id="mesAno" class="transparent-btn">novembro de 2025</button>
+                    <div id="monthYearSelector" class="hidden">
+                        <select id="monthSelect"></select>
+                        <select id="yearSelectPopup"></select>
+                        <button id="applyMonthYear">OK</button>
+                    </div>
+
+                    <button id="nextMonth" class="nav-btn">›</button>
+                </div>
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+
+            <div class="month-events">
+                <h3 id="monthEventsTitle">Compromissos do mês</h3>
+                <div id="monthEventList"></div>
+            </div>
         </div>
 
-        <div id="calendar" class="calendar-grid"></div>
+        <div class="all-events-section">
+            <div class="year-filter">
+                <button id="btnAllEvents" class="btn-action">Ver todos os compromissos</button>
+                <button id="btnYearFilter" class="btn-action">Ver compromissos do ano</button>
+                <div class="year-select-container">
+                    <select id="yearSelect"></select>
+                </div>
+            </div>
+            <div id="allEventList"></div>
+        </div>
     </main>
 
     <div id="modal" class="modal">
@@ -29,9 +54,9 @@
             <div id="event-list" class="event-list"></div>
 
             <hr>
-            <button id="btnAddNovo" class="btn-add-novo" style="display:none">＋ Adicionar compromisso</button>
+            <button id="btnAddNovo" class="btn-add-novo"><img src="material/add.png" width="20">Adicionar compromisso</button>
             <div id="form-container">
-                <h4>Adicionar compromisso</h4>
+                <h4>Adicionar/Editar compromisso</h4>
                 <form id="form-add" class="form-add">
                     <input id="new-titulo" placeholder="Título" required />
                     <input id="new-descricao" placeholder="Descrição" />
