@@ -80,7 +80,7 @@ applyMonthYear.addEventListener('click', ()=>{
     updateMesAnoBtn();
     monthYearSelector.classList.add('hidden');
     renderCalendar();
-});
+}); 
 
 btnAddNovo.addEventListener('click',()=>{formContainer.style.display="block"; btnAddNovo.style.display="none";});
 
@@ -242,7 +242,6 @@ function renderYearEvents(){
     });
 }
 
-// Modal
 function openModalForDate(dateObj){
     modal.style.display="flex";
     modalDateEl.textContent=dateObj.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
@@ -294,9 +293,6 @@ function renderEventList(dateObj){
         
         const btnDelete = item.querySelector('.btn-delete');
         btnDelete.addEventListener('click', async (e)=>{
-            e.stopPropagation();
-            if(!confirm(`Deseja realmente excluir "${ev.titulo}"?`)) return;
-            
             const evId = ev._id || ev.id;
             await fetch(`${api}/${evId}`, {method:"DELETE"});
             eventos = eventos.filter(e => (e._id || e.id) !== evId);
@@ -349,5 +345,4 @@ function closeModal(){
     modal.style.display="none";
 }
 
-// Inicial
 loadEventos().then(()=>renderCalendar());
